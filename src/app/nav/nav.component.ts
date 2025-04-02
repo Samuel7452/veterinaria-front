@@ -59,6 +59,7 @@ export class NavComponent implements OnInit {
         this.http.post('http://127.0.0.1:8000/api/logout', {}, { headers }).subscribe(() => {
           this.authenticated = false;
           this.cookieService.delete('jwt');
+          
         });
  
       },

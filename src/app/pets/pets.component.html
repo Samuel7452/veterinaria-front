@@ -1,1 +1,22 @@
-<p>pets works!</p>
+<div class="container mt-4">
+    <h2 class="text-center mb-4 text-primary">🐾 Lista de Mascotas 🐾</h2>
+  
+    <div class="pets-grid">
+      <div *ngFor="let pet of pets" class="pet-card shadow-lg">
+        <img *ngIf="pet.image" [src]="'data:image/jpeg;base64,' + pet.image" class="pet-img" alt="Imagen de {{ pet.name }}">
+        <div class="card-body text-center">
+          <h5 class="card-title text-uppercase fw-bold">{{ pet.name }}</h5>
+          <p class="card-text">
+            <span class="badge bg-secondary">{{ pet.species }}</span>
+            <span class="badge bg-info text-dark ms-1">{{ pet.breed }}</span>
+          </p>
+          <p class="pet-info">
+            🗓️ <strong>Nacimiento:</strong> {{ pet.birth_date }}<br>
+            👤 <strong *ngIf="!rol">Dueño ID:</strong> {{ pet.user.name }}
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
