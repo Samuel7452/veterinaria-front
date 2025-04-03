@@ -7,6 +7,7 @@ import { Emitters } from '../../emiters/emiters';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -21,7 +22,9 @@ export class NavComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private authService:AuthService
+    
   ) {
 
   }
@@ -30,21 +33,14 @@ export class NavComponent implements OnInit {
     Emitters.authEmitter.subscribe(
       (auth: boolean) => {
         console.log(auth)
-
         this.authenticated = auth;
       } 
     )
-
-    
-
   }
 
   logout(): void {
-    // this.authenticated = false;
 
-
-
-    this.http.get('http://localhost:8000/api/user', { withCredentials: true })
+    this.userData = this.authService.request(true)
     .subscribe({
       next: (res: any) => {
         console.log(res);
@@ -63,7 +59,7 @@ export class NavComponent implements OnInit {
         });
  
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error occurred:', err);
       }
     });

@@ -1,0 +1,37 @@
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+      <h2 class="text-center mb-4">Registrar Mascota</h2>
+      
+      <form [formGroup]="form" (ngSubmit)="submit()" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre</label>
+          <input type="text" id="name" class="form-control" formControlName="name" placeholder="Nombre de la mascota" />
+        </div>
+  
+        <div class="mb-3">
+          <label for="species" class="form-label">Especie</label>
+          <input type="text" id="species" class="form-control" formControlName="species" placeholder="Ej: Perro, Gato" />
+        </div>
+  
+        <div class="mb-3">
+          <label for="breed" class="form-label">Raza</label>
+          <input type="text" id="breed" class="form-control" formControlName="breed" placeholder="Ej: Labrador, Siames" />
+        </div>
+  
+        <div class="mb-3">
+          <label for="birth_date" class="form-label">Fecha de Nacimiento</label>
+          <input type="date" id="birth_date" class="form-control" formControlName="birth_date" />
+        </div>
+  
+        <div class="mb-3">
+          <label for="image" class="form-label">Subir Imagen</label>
+          <input type="file" id="image" class="form-control" (change)="onFileSelected($event)" />
+        </div>
+  
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary w-100">Registrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

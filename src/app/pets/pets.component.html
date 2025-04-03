@@ -1,7 +1,17 @@
 <div class="container mt-4">
     <h2 class="text-center mb-4 text-primary">🐾 Lista de Mascotas 🐾</h2>
   
-    <div class="pets-grid">
+    <div class="d-flex justify-content-end mb-3">
+      <button (click)="goToPets()" class="btn btn-success">
+        ➕ Add New Pet
+      </button>
+    </div>
+
+    <div *ngIf="isLoading" class="loader-container">
+      <div class="loader"></div>
+    </div>
+
+    <div *ngIf="!isLoading" class="pets-grid">
       <div *ngFor="let pet of pets" class="pet-card shadow-lg">
         <img *ngIf="pet.image" [src]="'data:image/jpeg;base64,' + pet.image" class="pet-img" alt="Imagen de {{ pet.name }}">
         <div class="card-body text-center">
@@ -11,9 +21,13 @@
             <span class="badge bg-info text-dark ms-1">{{ pet.breed }}</span>
           </p>
           <p class="pet-info">
-            🗓️ <strong>Nacimiento:</strong> {{ pet.birth_date }}<br>
-            👤 <strong *ngIf="!rol">Dueño ID:</strong> {{ pet.user.name }}
+             <strong>🗓️ Nacimiento: {{ pet.birth_date }}</strong> <br>
+             <strong *ngIf="admin">👤 Dueño ID: {{ pet.user.name }}</strong> 
           </p>
+
+          <button (click)="delete(pet.id)" class="btn btn-danger">
+            🚮 eliminar
+          </button>
 
         </div>
       </div>

@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Component,OnInit  } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 // import { RouterModule } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pets',
@@ -14,50 +16,72 @@ import { CookieService } from 'ngx-cookie-service';
 })
 
 export class PetsComponent implements OnInit {
-    pets: any[] = [];
-    // rol: any;
-    userData: any;
-    constructor(
-      private http: HttpClient,
-      private cookieService: CookieService
-      // private cookieService: CookieService
-    ) {
+  pets: any[] = [];
+  admin = false;
+  userData: any;
+  showComponent = true;
+  isLoading = true;
+
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService,
+    private authService:AuthService,
+    private router: Router
+
+  ) {
+
+  }
   
-    }
-  
-    ngOnInit(): void {
+  ngOnInit(): void {
+    this.loadPets()
+  }
 
-
-      this.http.get('http://localhost:8000/api/user', { withCredentials: true })
-      .subscribe({
-        next: (res: any) => {
-          console.log(res);
-          this.userData = res;
-        },
-        error: (err) => {
-          console.error('Error occurred:', err);
-        }})
-
+  loadPets(){
+    this.isLoading = true; 
+    this.userData = this.authService.request(false)
     this.http.get('http://localhost:8000/api/pet', { withCredentials: true })
-      .subscribe({
-        next: (res: any) => {
-          console.log(res);
-          this.pets = res;
+    .subscribe({
+      next: (res: any) => {
+        this.pets = res;
+        this.admin = this.userData.role_id==3;
+        this.isLoading = false;
 
-          // this.rol = this.cookieService.get('user-rol')!=3;
-          // console.log('Cookie Value:', userRol);
-          // this.userData = res;
-          // this.message = "Hi " + this.userData.name;
-          // Emitters.authEmitter.emit(true);
-        },
-        error: (err) => {
-          console.error('Error occurred:', err);
-          // this.message = 'You are not logged in';
-          // Emitters.authEmitter.emit(false);
-        }
-      });
-    }
-  
+      },
+      error: (err) => {
+        console.error('Error occurred:', err);
+      }
+    });
+
+    
+
+  }
+
+  delete(petId:number): void {
+    this.userData = this.authService.request(true)
+    .subscribe({
+      next: (res: any) => {
+        this.userData = res;
+        const headers = new HttpHeaders({
+          'Authorization': 'Bearer '+ this.userData.token
+        });
+
+        this.http.delete(`http://127.0.0.1:8000/api/pet/delete/${petId}`, { headers }).subscribe(() => {
+          this.loadPets()
+        });
+ 
+      },
+      error: (err: any) => {
+        console.error('Error occurred:', err);
+      }
+    });
+
+  }
+
+  goToPets() {
+    this.router.navigate(['/pet/create']);
+  }
+
+
   }
 
 

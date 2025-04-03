@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Emitters } from '../../emiters/emiters';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-home',
@@ -17,14 +18,15 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private authService:AuthService
   ) {}
 
   ngOnInit(): void {
 
 
 
-    this.http.get('http://localhost:8000/api/user', { withCredentials: true })
+    this.userData = this.authService.request(true)
       .subscribe({
         next: (res: any) => {
           console.log(res);
@@ -32,7 +34,7 @@ export class HomeComponent implements OnInit {
           this.message = "Hi " + this.userData.name;
           Emitters.authEmitter.emit(true);
         },
-        error: (err) => {
+        error: (err: any) => {
           console.error('Error occurred:', err);
           this.message = 'You are not logged in';
           Emitters.authEmitter.emit(false);
