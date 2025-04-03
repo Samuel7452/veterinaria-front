@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PetsComponent } from './pets/pets.component';
 import { CreatePetComponent } from './create-pet/create-pet.component';
+import { UpdatePetComponent } from './update-pet/update-pet.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -11,6 +12,7 @@ export const routes: Routes = [
     {path: 'register', component: RegisterComponent},
     {path: 'pets', component: PetsComponent},
     {path: 'pet/create', component: CreatePetComponent},
+    {path: 'pet/update/:id', component: UpdatePetComponent},
 ];
 
 

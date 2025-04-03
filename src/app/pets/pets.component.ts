@@ -80,7 +80,10 @@ export class PetsComponent implements OnInit {
   goToPets() {
     this.router.navigate(['/pet/create']);
   }
-
+  
+  goToEditPet(petId:number) {
+    this.router.navigate(['/pet/update/',petId]);
+  }
 
   }
 
