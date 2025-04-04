@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 export class PetsComponent implements OnInit {
   pets: any[] = [];
   admin = false;
-  userData: any;
+  userData: any = undefined;
   showComponent = true;
   isLoading = true;
 
@@ -38,12 +38,14 @@ export class PetsComponent implements OnInit {
 
   loadPets(){
     this.isLoading = true; 
-    this.userData = this.authService.request(false)
+    if (this.userData == undefined) {
+      this.userData = this.authService.request(false)
+    }
     this.http.get('http://localhost:8000/api/pet', { withCredentials: true })
     .subscribe({
       next: (res: any) => {
         this.pets = res;
-        this.admin = this.userData.role_id==3;
+        this.admin = this.userData.user_type_id==3;
         this.isLoading = false;
 
       },
@@ -65,7 +67,7 @@ export class PetsComponent implements OnInit {
           'Authorization': 'Bearer '+ this.userData.token
         });
 
-        this.http.delete(`http://127.0.0.1:8000/api/pet/delete/${petId}`, { headers }).subscribe(() => {
+        this.http.delete(`http://localhost:8000/api/pet/delete/${petId}`, { headers }).subscribe(() => {
           this.loadPets()
         });
  

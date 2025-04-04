@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-update-pet',
@@ -10,7 +11,8 @@ import { AuthService } from '../auth.service';
   templateUrl: './update-pet.component.html',
   styleUrl: './update-pet.component.css'
 })
-export class UpdatePetComponent {
+// export class UpdatePetComponent {
+export class UpdatePetComponent implements OnInit {
   form!: FormGroup;
   selectedFile:any;
   userData: any;
@@ -27,6 +29,7 @@ export class UpdatePetComponent {
     private formBuilder: FormBuilder,
     private http:HttpClient,
     private router: Router,
+    private cookieService: CookieService,
     private authService: AuthService,
     private route: ActivatedRoute
   ){
@@ -34,8 +37,7 @@ export class UpdatePetComponent {
 
   ngOnInit(): void {
     this.petId = this.route.snapshot.paramMap.get('id');
-   
-    this.http.get(`http://127.0.0.1:8000/api/pet/get/${this.petId}`, { withCredentials: true })
+    this.http.get(`http://localhost:8000/api/pet/get/${this.petId}`, { withCredentials: true })
     .subscribe({
       next: (res: any) => {
 
@@ -81,12 +83,13 @@ export class UpdatePetComponent {
     }
 
     this.userData = this.authService.request(false)
+    
     const headers = new HttpHeaders({
       'Authorization': 'Bearer '+ this.userData.token,
 
     });
 
-    this.http.post<FormData>(`http://127.0.0.1:8000/api/pet/update/${petId}`, formData, { headers }).subscribe(res => {
+    this.http.post<FormData>(`http://localhost:8000/api/pet/update/${petId}`, formData, { headers }).subscribe(res => {
       this.router.navigate(['/pets']);
     });
 

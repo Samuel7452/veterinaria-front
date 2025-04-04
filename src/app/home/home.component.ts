@@ -29,15 +29,16 @@ export class HomeComponent implements OnInit {
     this.userData = this.authService.request(true)
       .subscribe({
         next: (res: any) => {
-          console.log(res);
           this.userData = res;
           this.message = "Hi " + this.userData.name;
           Emitters.authEmitter.emit(true);
+          Emitters.typeEmitter.emit([this.userData.type,this.userData.user_type_id]);
         },
         error: (err: any) => {
           console.error('Error occurred:', err);
           this.message = 'You are not logged in';
           Emitters.authEmitter.emit(false);
+          Emitters.typeEmitter.emit([undefined,undefined]);
         }
       });
   }

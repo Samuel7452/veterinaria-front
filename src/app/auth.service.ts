@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class AuthService {
 
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
   request(bring_request: boolean){
@@ -19,10 +21,10 @@ export class AuthService {
     this.req = this.http.get('http://localhost:8000/api/user', { withCredentials: true });
     this.req.subscribe({
       next: (res: any) => {
-        console.log(res);
         this.response = res;
       },
       error: (err: any) => {
+        // this.router.navigate(['/']);
         console.error('Error occurred:', err);
       }})
 

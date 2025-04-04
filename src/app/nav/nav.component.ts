@@ -19,6 +19,8 @@ import { AuthService } from '../auth.service';
 export class NavComponent implements OnInit {
   authenticated = false;
   userData: any;
+  type: any;
+  admin= false;
 
   constructor(
     private http: HttpClient,
@@ -32,10 +34,16 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
     Emitters.authEmitter.subscribe(
       (auth: boolean) => {
-        console.log(auth)
         this.authenticated = auth;
       } 
     )
+    Emitters.typeEmitter.subscribe(
+      (typ: any) => {
+        this.type = typ[0];
+        this.admin = typ[1]==3;
+      } 
+    )
+
   }
 
   logout(): void {
@@ -43,17 +51,21 @@ export class NavComponent implements OnInit {
     this.userData = this.authService.request(true)
     .subscribe({
       next: (res: any) => {
-        console.log(res);
-        this.userData = res;
+
+        if (this.userData.user_type_id == 3) {
+          this.admin = true;
+          
+        }
 
         const headers = new HttpHeaders({
           'Content-Type': 'application/json',
           'Authorization': 'Bearer '+ this.userData.token
         });
 
-        console.log(headers)
-        this.http.post('http://127.0.0.1:8000/api/logout', {}, { headers }).subscribe(() => {
+        this.http.post('http://localhost:8000/api/logout', {}, { headers }).subscribe(() => {
           this.authenticated = false;
+          this.admin = false;
+          this.type = undefined;
           this.cookieService.delete('jwt');
           
         });

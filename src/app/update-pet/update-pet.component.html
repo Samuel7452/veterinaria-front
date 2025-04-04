@@ -4,28 +4,28 @@
       
       <form [formGroup]="form" (ngSubmit)="submit(petId)" enctype="multipart/form-data">
         <div class="mb-3">
-          <label for="name" class="form-label">{{name}}</label>
-          <input type="text" id="name" class="form-control" formControlName="name" placeholder="Nombre de la mascota" />
+          <label for="name" class="form-label">nombre</label>
+          <input type="text" id="name" class="form-control" formControlName="name" [(ngModel)]="name"/>
         </div>
   
         <div class="mb-3">
           <label for="species" class="form-label">Especie</label>
-          <input type="text" id="species" class="form-control" formControlName="species" placeholder="Ej: Perro, Gato" />
+          <input type="text" id="species" class="form-control" formControlName="species" [(ngModel)]="species" />
         </div>
   
         <div class="mb-3">
           <label for="breed" class="form-label">Raza</label>
-          <input type="text" id="breed" class="form-control" formControlName="breed" placeholder="Ej: Labrador, Siames" />
+          <input type="text" id="breed" class="form-control" formControlName="breed" [(ngModel)]="breed"/>
         </div>
   
         <div class="mb-3">
           <label for="birth_date" class="form-label">Fecha de Nacimiento</label>
-          <input type="date" id="birth_date" class="form-control" formControlName="birth_date" />
+          <input type="date" id="birth_date" class="form-control" formControlName="birth_date" [(ngModel)]="birth_date"/>
         </div>
   
         <div class="mb-3">
           <label for="image" class="form-label">Subir Imagen</label>
-          <input type="file" id="image" class="form-control" (change)="onFileSelected($event)" />
+          <input type="file" id="image" class="form-control" (change)="onFileSelected($event)"  />
         </div>
   
         <div class="text-center">
