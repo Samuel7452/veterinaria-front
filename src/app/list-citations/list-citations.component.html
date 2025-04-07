@@ -1,0 +1,71 @@
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+<hr>
+<div class="container bootstrap snippets bootdey">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!-- <div class="d-flex justify-content-end mb-3">
+                <button (click)="newVet()" class="btn btn-success">
+                  ➕ Nuevo Veterinario
+                </button>
+              </div> -->
+
+
+            <div class="main-box no-header clearfix">
+                <div class="main-box-body clearfix">
+                    <div class="table-responsive">
+                        <table class="table user-list">
+                            <thead>
+                                <tr>
+                                <th><span>Fecha</span></th>
+                                <th><span>Mascota</span></th>
+                                <th><span>Estado</span></th>
+                                <th><span>Veterinario</span></th>
+                                <th><span>acciones</span></th>
+
+                                <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let citation of citations">
+
+
+                                <tr>
+
+                                  
+                                    <td><span class="user-subhead">{{citation.date}}</span></td>
+                                    <td><span class="user-subhead">{{citation.pet_name}}</span></td>
+                                    
+                                    <td *ngIf="citation.is_active"><span   class="user-subhead">activa</span></td>
+                                    <td *ngIf="!citation.is_active"><span   class="user-subhead">inactiva</span></td>
+
+                                    <td><span class="user-subhead">{{citation.vet_name}}</span></td>
+
+                                    <td>
+
+                                        <button  class="btn btn-primary">
+                                            ✍️
+                                        </button>
+                                        
+                                        <button *ngIf="citation.is_active" class="btn btn-danger">
+                                            ❌ 
+                                        </button>
+
+                                        <button *ngIf="!citation.is_active" class="btn btn-success">
+                                            ✔️
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+                               
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

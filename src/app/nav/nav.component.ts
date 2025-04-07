@@ -21,6 +21,7 @@ export class NavComponent implements OnInit {
   userData: any;
   type: any;
   admin= false;
+  vet= false;
 
   constructor(
     private http: HttpClient,
@@ -41,6 +42,7 @@ export class NavComponent implements OnInit {
       (typ: any) => {
         this.type = typ[0];
         this.admin = typ[1]==3;
+        this.vet = typ[1]==2;
       } 
     )
 

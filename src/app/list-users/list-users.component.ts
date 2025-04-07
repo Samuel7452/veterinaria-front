@@ -35,11 +35,6 @@ export class ListUsersComponent {
     this.loadUsers()
 
 
-    // this.items = [
-    //   { title: 'Tarjeta 1', description: 'Descripción de la tarjeta 1' },
-    //   { title: 'Tarjeta 2', description: 'Descripción de la tarjeta 2' },
-    //   { title: 'Tarjeta 3', description: 'Descripción de la tarjeta 3' }
-    // ];
   }
 
 

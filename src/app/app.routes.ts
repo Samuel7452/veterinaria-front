@@ -8,6 +8,7 @@ import { UpdatePetComponent } from './update-pet/update-pet.component';
 import { ListUsersComponent } from './list-users/list-users.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { ListCitationsComponent } from './list-citations/list-citations.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -19,6 +20,7 @@ export const routes: Routes = [
     {path: 'user/list', component: ListUsersComponent},
     {path: 'user/update/:id', component: UpdateUserComponent},
     {path: 'user/create', component: CreateUserComponent},
+    {path: 'citations/list', component: ListCitationsComponent},
 ];
 
 
