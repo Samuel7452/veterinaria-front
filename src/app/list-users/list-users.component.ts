@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-users',
@@ -14,17 +15,31 @@ export class ListUsersComponent {
   users: any[] = [];
   last_name: any;
   userData: any;
+  userId: any;
+  pets: any[] = [];
+  showOverlay = false;
+  // show_check = false;
 
   constructor(
     private http: HttpClient,
     private authService:AuthService,
+    private router: Router
+    // private router: Router
   ) {
 
   }
 
   ngOnInit(): void {
+    
     this.userData = this.authService.request(false)
     this.loadUsers()
+
+
+    // this.items = [
+    //   { title: 'Tarjeta 1', description: 'Descripción de la tarjeta 1' },
+    //   { title: 'Tarjeta 2', description: 'Descripción de la tarjeta 2' },
+    //   { title: 'Tarjeta 3', description: 'Descripción de la tarjeta 3' }
+    // ];
   }
 
 
@@ -35,6 +50,14 @@ export class ListUsersComponent {
       next: (res: any) => {
         this.users = res;
         this.users.forEach((user) => {
+          
+          if (user.id != this.userData.id) {
+            user['show_check'] = true
+          } else {
+            user['show_check'] = false
+          }
+
+
           user['last_name'] =user['name'].split(" ")
           if (user['last_name'].length > 1) {
             user['last_name'] = user['last_name'][1].toString()
@@ -45,6 +68,7 @@ export class ListUsersComponent {
               user['last_name'] = ' '
             }
           }
+
 
           user['created_at'] = user['created_at'].slice(0,10)
 
@@ -69,7 +93,7 @@ export class ListUsersComponent {
     .subscribe({
       next: (res: any) => {
 
-        this.http.patch(`http://localhost:8000/api/user/edit/${userId}`, {"is_active": isActive!=true}, { withCredentials:true }).subscribe(() => {
+        this.http.patch(`http://localhost:8000/api/user/update/${userId}`, {"is_active": isActive!=true}, { withCredentials:true }).subscribe(() => {
           this.userData = this.authService.request(false)
           this.loadUsers()
         });
@@ -80,6 +104,44 @@ export class ListUsersComponent {
       }
     });
 
+  }
+
+  goToEditUser(userId: number) {
+    this.router.navigate(['/user/update',userId]);
+  }
+
+
+  showOver(userId: number) {
+
+    this.showOverlay = !this.showOverlay;
+    if (this.showOverlay) {
+
+
+      this.http.get(`http://localhost:8000/api/pet/getByUser/${userId}`, { withCredentials: true })
+      .subscribe({
+        next: (res: any) => {
+          this.pets = res;
+          // this.admin = this.userData.user_type_id==3;
+          // this.isLoading = false;
+  
+        },
+        error: (err) => {
+          console.error('Error occurred:', err);
+        }
+      });
+
+      // listPets(userId: any) 
+    }
+
+  }
+
+  togleOverlay() {
+    this.pets= [];
+    this.showOverlay = false;
+  }
+
+  newVet() {
+    this.router.navigate(['/user/create']);
   }
 
 

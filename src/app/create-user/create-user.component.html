@@ -1,0 +1,19 @@
+
+<form [formGroup] = "form" (submit)="submit()">
+    <h1 class="h3 mb-3 fw-normal">Crear nuevo veterinario</h1>
+
+    <div class="form-floating">
+    <input formControlName="name" type="text" class="form-control" id="floatingName" placeholder="nombre del veterinario">
+    <label for="floatingName">Nombre</label>
+    </div>
+    <div class="form-floating">
+    <input formControlName="email" type="email" class="form-control" id="floatingEmail" placeholder="name@example.com">
+    <label for="floatingEmail">Correo</label>
+    </div>
+    <div class="form-floating">
+    <input formControlName="password" type="password" class="form-control" id="floatingPassword" placeholder="contraseña">
+    <label for="floatingPassword">Contraseña</label>
+    </div>
+
+    <button class="btn btn-primary w-100 py-2" type="submit">Submit</button>
+</form>

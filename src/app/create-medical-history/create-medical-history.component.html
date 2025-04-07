@@ -1,0 +1,27 @@
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+      <h2 class="text-center mb-4">Registrar historia medica</h2>
+      
+      <form [formGroup]="form" (ngSubmit)="submit()" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="title" class="form-label">titulo</label>
+          <input type="text" id="title" class="form-control" formControlName="title" placeholder="titulo" />
+        </div>
+  
+        <div class="mb-3">
+          <label for="content" class="form-label">contenido</label>
+          <textarea type="text" id="content" class="form-control" formControlName="content" placeholder="contenido de la historia medica" rows="5" cols="40"></textarea>
+          <!-- <textarea id="mensaje" name="mensaje" rows="5" cols="40"></textarea> -->
+        </div>
+
+        <input type="text" id="pet_id" class="form-control" formControlName="pet_id" placeholder="titulo" hidden value="petId" />
+
+
+  
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary w-100">Registrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

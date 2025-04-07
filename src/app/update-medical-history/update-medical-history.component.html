@@ -1,0 +1,23 @@
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+      <h2 class="text-center mb-4">Actualizar historia medica</h2>
+      
+      <form [formGroup]="form" (ngSubmit)="submit(historyId)" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="title" class="form-label">titulo</label>
+          <input type="text" id="title" class="form-control" formControlName="title"  [(ngModel)]="title"/>
+        </div>
+  
+        <div class="mb-3">
+          <label for="content" class="form-label">contenido</label>
+          <textarea type="text" id="content" class="form-control" formControlName="content" rows="5" cols="40" [(ngModel)]="content"></textarea>
+          <!-- <textarea id="mensaje" name="mensaje" rows="5" cols="40"></textarea> -->
+        </div>
+ 
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary w-100">Registrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

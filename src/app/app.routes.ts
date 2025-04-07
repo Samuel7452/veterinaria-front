@@ -6,6 +6,8 @@ import { PetsComponent } from './pets/pets.component';
 import { CreatePetComponent } from './create-pet/create-pet.component';
 import { UpdatePetComponent } from './update-pet/update-pet.component';
 import { ListUsersComponent } from './list-users/list-users.component';
+import { UpdateUserComponent } from './update-user/update-user.component';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -15,6 +17,8 @@ export const routes: Routes = [
     {path: 'pet/create', component: CreatePetComponent},
     {path: 'pet/update/:id', component: UpdatePetComponent},
     {path: 'user/list', component: ListUsersComponent},
+    {path: 'user/update/:id', component: UpdateUserComponent},
+    {path: 'user/create', component: CreateUserComponent},
 ];
 
 

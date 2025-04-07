@@ -29,32 +29,31 @@ export class UpdatePetComponent implements OnInit {
     private formBuilder: FormBuilder,
     private http:HttpClient,
     private router: Router,
-    private cookieService: CookieService,
     private authService: AuthService,
     private route: ActivatedRoute
+    
   ){
   }
 
   ngOnInit(): void {
+
+    this.form = this.formBuilder.group({
+      name: [''],
+      species: [''],
+      breed: [''],
+      birth_date: [''],
+      image: ['']
+    });
+
     this.petId = this.route.snapshot.paramMap.get('id');
     this.http.get(`http://localhost:8000/api/pet/get/${this.petId}`, { withCredentials: true })
     .subscribe({
       next: (res: any) => {
-
         this.name = res.name
         this.species = res.species
         this.breed = res.breed
         this.birth_date = res.birth_date
         this.image = res.image
-
-        this.form = this.formBuilder.group({
-          name: [''],
-          species: [''],
-          breed: [''],
-          birth_date: [''],
-          image: ['']
-        });
-
       },
       error: (err) => {
         console.error('Error occurred:', err);
