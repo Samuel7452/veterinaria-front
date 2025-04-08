@@ -26,7 +26,8 @@ export class AuthService {
       error: (err: any) => {
         // this.router.navigate(['/']);
         console.error('Error occurred:', err);
-      }})
+      }}
+    )
 
     if (bring_request) {
       return this.req;

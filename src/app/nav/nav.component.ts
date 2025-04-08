@@ -33,6 +33,8 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    
     Emitters.authEmitter.subscribe(
       (auth: boolean) => {
         this.authenticated = auth;
@@ -45,39 +47,29 @@ export class NavComponent implements OnInit {
         this.vet = typ[1]==2;
       } 
     )
+    
 
   }
 
   logout(): void {
+    this.userData = this.authService.request(false)
+    if (this.userData.user_type_id == 3) {
+      this.admin = true;
+      
+    }
 
-    this.userData = this.authService.request(true)
-    .subscribe({
-      next: (res: any) => {
-
-        if (this.userData.user_type_id == 3) {
-          this.admin = true;
-          
-        }
-
-        const headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer '+ this.userData.token
-        });
-
-        this.http.post('http://localhost:8000/api/logout', {}, { headers }).subscribe(() => {
-          this.authenticated = false;
-          this.admin = false;
-          this.type = undefined;
-          this.cookieService.delete('jwt');
-          
-        });
- 
-      },
-      error: (err: any) => {
-        console.error('Error occurred:', err);
-      }
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+ this.userData.token
     });
 
+    this.http.post('http://localhost:8000/api/logout', {}, { headers }).subscribe(() => {
+      this.authenticated = false;
+      this.admin = false;
+      this.type = undefined;
+      this.cookieService.delete('jwt');
+      
+    });
   }
 
 }

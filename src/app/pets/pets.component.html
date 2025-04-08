@@ -1,130 +1,100 @@
-<div class="container mt-4">
-    <h2 class="text-center mb-4 text-primary">🐾 Lista de Mascotas 🐾</h2>
-  
-    <div class="d-flex justify-content-end mb-3">
-      <button *ngIf="admin || !vet" (click)="goToPets()" class="btn btn-success">
-        ➕ Add New Pet
-      </button>
-    </div>
-
-    <div *ngIf="isLoading" class="loader-container">
-      <div class="loader"></div>
-    </div>
-
-    <div *ngIf="!isLoading" class="pets-grid">
-      <div *ngFor="let pet of pets" class="pet-card shadow-lg">
-        <img *ngIf="pet.image" [src]="'data:image/jpeg;base64,' + pet.image" class="pet-img" alt="Imagen de {{ pet.name }}">
-        <div class="card-body text-center">
-          <h5 class="card-title text-uppercase fw-bold">{{ pet.name }}</h5>
-          <p class="card-text">
-            <span class="badge bg-secondary">{{ pet.species }}</span>
-            <span class="badge bg-info text-dark ms-1">{{ pet.breed }}</span>
-          </p>
-          <p class="pet-info">
-             <strong>🗓️ Nacimiento: {{ pet.birth_date }}</strong> <br>
-             <strong *ngIf="admin || vet">👤 Dueño ID: {{ pet.user.name }}</strong> 
-          </p>
-
-          <button (click)="delete(pet.id)" *ngIf="!vet" class="btn btn-danger">
-            🚮 eliminar
-          </button>
-
-          <button (click)="goToEditPet(pet.id)" *ngIf="!vet" class="btn btn-primary">
-            ✍️ editar
-          </button>
-
-          <button (click)="showOver(pet.id)" *ngIf="vet || admin" class="btn btn-primary">
-            ✍️ crear historia
-          </button>
 
 
-          <button (click)="showOverMedicalHistories(pet.id)" class="btn btn-warning">
-            🔍 Historial
-          </button>
 
 
-          
 
+
+<div class="page">
+  <div class="content">
+    <div class="container mt-4">
+      <h2 class="text-center mb-4 text-primary">🐾 Lista de Mascotas 🐾</h2>
+
+      <div class="d-flex justify-content-end mb-3">
+        <button *ngIf="admin || !vet" (click)="goToPets()" class="btn btn-success">
+          ➕ Add New Pet
+        </button>
+      </div>
+<!-- 
+      <div *ngIf="isLoading" class="loader-container">
+        <div class="loader"></div>
+      </div> -->
+
+      <div *ngIf="!isLoading" class="pets-grid">
+        <div *ngFor="let pet of pets" class="pet-card shadow-lg">
+          <img *ngIf="pet.image" [src]="'data:image/jpeg;base64,' + pet.image" class="pet-img" alt="Imagen de {{ pet.name }}">
+          <div class="card-body text-center">
+            <h5 class="card-title text-uppercase fw-bold">{{ pet.name }}</h5>
+            <p class="card-text">
+              <span class="badge bg-secondary">{{ pet.species }}</span>
+              <span class="badge bg-info text-dark ms-1">{{ pet.breed }}</span>
+            </p>
+            <p class="pet-info">
+              <strong>🗓️ Nacimiento: {{ pet.birth_date }}</strong><br>
+              <strong *ngIf="admin || vet">👤 Dueño ID: {{ pet.user.name }}</strong>
+            </p>
+
+            <button (click)="delete(pet.id)" *ngIf="!vet" class="btn btn-danger">🚮 eliminar</button>
+            <button (click)="goToEditPet(pet.id)" *ngIf="!vet" class="btn btn-primary">✍️ editar</button>
+            <button (click)="showOver(pet.id)" *ngIf="vet || admin" class="btn btn-primary">✍️ crear historia</button>
+            <button (click)="showOverMedicalHistories(pet.id)" class="btn btn-warning">🔍 Historial</button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="overlay" *ngIf="showOverlay">
-      <div class="overlay-content">
-        <button class="close-btn" (click)="togleOverlay()">✖</button>
-        <div class="card-list">
-
-
-
-
-          <app-create-medical-history [petId]=selectedPet></app-create-medical-history>
-
-
+      <!-- Overlays -->
+      <div class="overlay" *ngIf="showOverlay">
+        <div class="overlay-content">
+          <button class="close-btn" (click)="togleOverlay()">✖</button>
+          <div class="card-list">
+            <app-create-medical-history [petId]="selectedPet"></app-create-medical-history>
+          </div>
         </div>
       </div>
-    </div>
-    
-    
-    <div class="overlay" *ngIf="showMedicalOverlay">
-      <div class="overlay-content">
-        <button class="close-btn" (click)="togleMedicalHistoriesOverlay()">✖</button>
-        <div class="card-list">
-          
-          
-          
-          
-          <div *ngFor="let history of histories" class=" shadow-lg">
-            <!-- <img *ngIf="pet.image" [src]="'data:image/jpeg;base64,' + pet.image" class="pet-img" alt="Imagen de {{ pet.name }}"> -->
-                <div class="card-body text-center">
-                  <h5 class="card-title text-uppercase fw-bold">{{ history.title }}</h5>
-                  <p class="card-text">
-                    <!-- <span class="badge bg-secondary">{{ history.content }}</span> -->
-                    <!-- <span class="badge bg-info text-dark ms-1">{{ history.content}}</span> -->
-                  </p>
-                  <p class="pet-info" style="text-align: left;">
-                    <strong>{{ history.content }}</strong> <br>
-                    
-                  </p>
-                  
-                  
-                  
-                  
-                </div>
-                
-                <div>
-                  
-                  <button *ngIf="vet || admin" (click)="showOverlayHistoryUpdate(history.id)" class="btn btn-primary">
-                    ✍️
-                  </button>
-                  <button *ngIf="vet || admin" (click)="deleteHistory(history.id)" class="btn btn-danger">
-                    🚮
-                  </button>
-                  
-                  
-                </div>
+
+      <div class="overlay" *ngIf="showMedicalOverlay">
+        <div class="overlay-content">
+          <button class="close-btn" (click)="togleMedicalHistoriesOverlay()">✖</button>
+          <div class="card-list">
+            <div *ngFor="let history of histories" class="shadow-lg">
+              <div class="card-body text-center">
+                <h5 class="card-title text-uppercase fw-bold">{{ history.title }}</h5>
+                <p class="pet-info" style="text-align: left;">
+                  <strong>{{ history.content }}</strong><br>
+                </p>
               </div>
-              
-              
-            </div>
-          </div>
-        </div>
-        
-        <div class="overlay" *ngIf="showOverlayHistoryEdit">
-          <div class="overlay-content">
-            <button class="close-btn" (click)="togleOverlayHistoryUpdate()">✖</button>
-            <div class="card-list">
-    
-    
-    
-    
-              <app-update-medical-history [historyId]=selectedHistory></app-update-medical-history>
-    
-    
+              <div>
+                <button *ngIf="vet || admin" (click)="showOverlayHistoryUpdate(history.id)" class="btn btn-primary">✍️</button>
+                <button *ngIf="vet || admin" (click)="deleteHistory(history.id)" class="btn btn-danger">🚮</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="overlay" *ngIf="showOverlayHistoryEdit">
+        <div class="overlay-content">
+          <button class="close-btn" (click)="togleOverlayHistoryUpdate()">✖</button>
+          <div class="card-list">
+            <app-update-medical-history [historyId]="selectedHistory"></app-update-medical-history>
+          </div>
+        </div>
+      </div>
       
-      
-      
-      
+      <div class="overlay" *ngIf="showErrorOverlay">
+        <div class="overlay-content">
+          <button class="close-btn" (click)="togleOverError()">✖</button>
+          <div class="card-list">
+            <h1>Error</h1>
+
+            <h3>{{errorMessage}}</h3>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div> <!-- /.container -->
+  </div> <!-- /.content -->
+</div> <!-- /.page -->
+
+

@@ -1,7 +1,29 @@
-html,
-body {
+
+
+html{
+  background-size: cover;
+  background-position: center;
+  /* max-height: 0%; */
   height: 100%;
+  background-color: #000000;
 }
+
+.body{
+  /* background-image: url('https://wallpapers.com/images/hd/minimalist-blue-e0q5nh2rivmv9eio.jpg'); */
+  background-color: #000000;
+}
+/* app-nav{
+  background-color: #000000;
+} */
+
+/* main{
+  height: 100%;
+} */
+
+/* html, */
+/* body {
+  height: 100%;
+} */
 
 .form-signin {
   max-width: 330px;
@@ -22,4 +44,4 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-}
+} 

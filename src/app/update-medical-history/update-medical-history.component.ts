@@ -40,10 +40,6 @@ export class UpdateMedicalHistoryComponent {
       next: (res: any) => {
         this.title = res.title
         this.content = res.content
-
-        console.log("aaaaaaaaaaaaaaaaa", this.title);
-        
-
       },
       error: (err) => {
         console.error('Error occurred:', err);

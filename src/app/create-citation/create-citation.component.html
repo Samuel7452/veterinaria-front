@@ -1,0 +1,55 @@
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+      <h2 class="text-center mb-4">Registrar Mascota</h2>
+  
+      <form [formGroup]="form" (ngSubmit)="submit()" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="pet_id" class="form-label">Mascota</label>
+          <select id="pet_id" class="form-control" formControlName="pet_id">
+            <option *ngFor="let pet of pets" [value]="pet.id">{{ pet.name }}</option>
+          </select>
+        </div>
+  
+        <div class="mb-3">
+          <label for="vet_id" class="form-label">Veterinario</label>
+          <select id="vet_id" (change)="getBussyDates($event)" class="form-control" formControlName="vet_id">
+            <option *ngFor="let vet of vets" [value]="vet.id">{{ vet.name }}</option>
+          </select>
+        </div>
+  
+        <div class="mb-3">
+          <label class="form-label">Fecha para la cita</label>
+  
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary" (click)="prevMonth()" [disabled]="currentMonthIndex === 0">Mes anterior</button>
+            <h5 class="mb-0">{{ calendarByMonth[currentMonthIndex].name }}</h5>
+            <button type="button" class="btn btn-sm btn-outline-secondary" (click)="nextMonth()" [disabled]="currentMonthIndex === 11">Mes siguiente</button>
+          </div>
+  
+          <div class="calendar-grid">
+            <div
+              *ngFor="let day of calendarByMonth[currentMonthIndex]?.days"
+              (click)="form.get('vet_id')?.value ? selectDate(day) : null"
+              class="calendar-day"
+              [ngClass]="{
+                'busy': isBusy(day),
+                'selected': isSelected(day),
+                'disabled': isBusy(day) || !form.get('vet_id')?.value
+              }"
+            >
+              {{ day.getDate() }}
+            </div>
+          </div>
+        </div>
+  
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary w-100">Registrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <style>
+
+  </style>
+  

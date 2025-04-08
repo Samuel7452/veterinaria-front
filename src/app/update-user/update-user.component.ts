@@ -66,8 +66,6 @@ export class UpdateUserComponent {
     Object.keys(this.form.controls).forEach(key => {
 
       if (key == 'password') {
-        console.log("asdfsfafasff");
-        
         if (this.form.get(key)?.value != ' ' && this.form.get(key)?.value != '') {
           formData.append(key, this.form.get(key)?.value);
         }

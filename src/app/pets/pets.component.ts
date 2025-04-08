@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { CreateMedicalHistoryComponent } from '../create-medical-history/create-medical-history.component';
 import { Emitters } from '../../emiters/emiters';
 import { UpdateMedicalHistoryComponent } from '../update-medical-history/update-medical-history.component';
+import { MatDialog } from '@angular/material/dialog';
 // import { NavComponent } from './nav/nav.component';
 
 @Component({
@@ -32,12 +33,16 @@ export class PetsComponent implements OnInit {
   showOverlayHistoryEdit = false;
   selectedPet: any;
   selectedHistory: any;
+  showErrorOverlay = false;
+  errorMessage="ha ocurrido un error"
+
 
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
     private authService:AuthService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
 
   ) {
 
@@ -58,14 +63,29 @@ export class PetsComponent implements OnInit {
         this.pets = res;
         this.admin = this.userData.user_type_id==3;
         this.vet = this.userData.user_type_id==2;
-
-        console.log(this.vet);
         
         this.isLoading = false;
 
       },
-      error: (err) => {
-        console.error('Error occurred:', err);
+      error: (error) => {
+        let message = 'Error desconocido';
+
+        if (error.error && typeof error.error === 'object' && error.error.message) {
+          message = error.error.message;
+
+        } else if (typeof error.error === 'string') {
+          message = error.error;
+
+        } else if (error.status === 401) {
+          message = 'No autorizado. Por favor inicia sesión.';
+        } else if (error.status === 403) {
+          message = 'Acceso denegado.';
+        } else if (error.status === 404) {
+          message = 'Recurso no encontrado.';
+        }
+
+        this.errorMessage = message;
+        this.showErrorOverlay = true;
       }
     });
 
@@ -82,13 +102,45 @@ export class PetsComponent implements OnInit {
           'Authorization': 'Bearer '+ this.userData.token
         });
 
-        this.http.delete(`http://localhost:8000/api/pet/delete/${petId}`, { headers }).subscribe(() => {
-          this.loadPets()
+        this.http.delete(`http://localhost:8000/api/pet/delete/${petId}`, { headers }).subscribe({
+          next: (res: any) => {
+            this.loadPets();
+          },
+          error: (error : any) => {
+            let message = 'Error desconocido';
+
+            if (error.error && typeof error.error === 'object' && error.error.message) {
+              message = error.error.message;
+
+            } else if (typeof error.error === 'string') {
+              message = error.error;
+
+            } else if (error.status === 401) {
+              message = 'No autorizado. Por favor inicia sesión.';
+            } else if (error.status === 403) {
+              message = 'Acceso denegado.';
+            } else if (error.status === 404) {
+              message = 'Recurso no encontrado.';
+            }
+
+
+
+
+            this.errorMessage = message;
+            this.showErrorOverlay = true;
+          },
         });
+        this.loadPets()
  
       },
       error: (err: any) => {
+
+
+
         console.error('Error occurred:', err);
+        
+
+
       }
     });
 
@@ -158,6 +210,10 @@ export class PetsComponent implements OnInit {
   togleOverlay() {
     // this.pets= [];
     this.showOverlay = false;
+  }
+  togleOverError() {
+    // this.pets= [];
+    this.showErrorOverlay = false;
   }
   
   togleMedicalHistoriesOverlay() {

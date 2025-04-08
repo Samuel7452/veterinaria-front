@@ -1,12 +1,22 @@
-
-
-  .content {
+.content {
     background-color: #ffffff;
     color: white !important;
     width: 80%;
     height: 90vh;
     border-radius: 10px 20px 30px 40px;
   }
+  /* .navbar {
+    background-color: #198754;
+    
+  /* } */
+  .navbar-brand, .nav-link {
+     color: white !important;  
+  }
+   .card-img-top {
+    height: 60%;
+    object-fit: cover;
+  } 
+
 
   .page{
     background-size: cover;

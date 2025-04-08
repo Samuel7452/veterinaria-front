@@ -1,19 +1,30 @@
 
-<form [formGroup] = "form" (submit)="submit()">
-    <h1 class="h3 mb-3 fw-normal">Please register</h1>
 
-    <div class="form-floating">
-    <input formControlName="name" type="text" class="form-control" id="floatingName" placeholder="your name">
-    <label for="floatingName">your name</label>
-    </div>
-    <div class="form-floating">
-    <input formControlName="email" type="email" class="form-control" id="floatingEmail" placeholder="name@example.com">
-    <label for="floatingEmail">Email address</label>
-    </div>
-    <div class="form-floating">
-    <input formControlName="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
-    <label for="floatingPassword">Password</label>
+
+<div class="page">
+
+    <div class="login-card">
+
+        <form [formGroup] = "form" (submit)="submit()">
+            <h1 class="h3 mb-3 fw-normal">Registrate</h1>
+
+            <div class="form-floating">
+            <input formControlName="name" type="text" class="form-control" id="floatingName" placeholder="your name">
+            <label for="floatingName">nombre</label>
+            </div>
+            <div class="form-floating">
+            <input formControlName="email" type="email" class="form-control" id="floatingEmail" placeholder="name@example.com">
+            <label for="floatingEmail">Correo</label>
+            </div>
+            <div class="form-floating">
+            <input formControlName="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Contraseña</label>
+            </div>
+
+            <button class="btn btn-primary w-100 py-2" type="submit">Registrar</button>
+        </form>
     </div>
 
-    <button class="btn btn-primary w-100 py-2" type="submit">Submit</button>
-</form>
+
+
+</div>

@@ -8,6 +8,8 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 // import { HttpClientModule } from '@angular/common/http';
 
 @Component({
@@ -15,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     RouterOutlet,
     NavComponent,
+    // ErrorDialogComponent,
     // HomeComponent,
     // LoginComponent,
     // RegisterComponent,
@@ -28,5 +31,5 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'vt_front';
+  title = 'veterinaria';
 }

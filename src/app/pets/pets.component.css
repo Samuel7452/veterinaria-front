@@ -123,3 +123,48 @@
     font-size: 20px;
     cursor: pointer;
   }
+
+
+/*   
+
+  .content {
+    background-color: #ffffff;
+    color: white !important;
+    width: 80%;
+    height: 90vh;
+    border-radius: 10px 20px 30px 40px;
+  }
+
+  .page{
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.95);
+    background-image: url('https://wallpapers.com/images/hd/minimalist-blue-e0q5nh2rivmv9eio.jpg'); /* Cambia esta URL si lo deseas */
+
+  
+
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+   /* o el color que uses */
+  }
+  
+  .content {
+    flex-grow: 1;
+    height: auto; /* MUY importante */
+    overflow: visible; /* permite que crezca */
+    padding-bottom: 2rem; /* para que no se pegue abajo */
+    background-color: #ffffff;
+    width: 80%;
+    border-radius: 10px 20px 30px 40px;
+    
+    
+  }
+  

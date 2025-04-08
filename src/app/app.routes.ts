@@ -9,9 +9,11 @@ import { ListUsersComponent } from './list-users/list-users.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { ListCitationsComponent } from './list-citations/list-citations.component';
+import { StoreComponent } from './store/store.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
+    {path: 'store', component: StoreComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'pets', component: PetsComponent},
